@@ -1,0 +1,101 @@
+---
+- name: Install Springboot
+  hosts: all
+  remote_user: root
+  
+  tasks:
+  - name: Install JAVA Packages
+    yum:
+      name:
+        - java-1.8.0-openjdk
+        - java-1.8.0-openjdk-devel
+      state: present
+      
+  - name: Add JAVA HOME
+    lineinfile:
+      path: ~/.bash_profile
+      line: JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-4.el8.x86_64
+      state: present
+      
+  - name: Add Class Path
+    lineinfile:
+      path: ~/.bash_profile
+      line: CLASSPATH=$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar
+      state: present
+      
+  - name: Add JAVA Path
+    lineinfile:
+      path: ~/.bash_profile
+      inseartafter: 'PATH=$PATH'
+      line: 'PATH=$PATH:$JAVA_HOME/bin'
+      state: present
+
+  - name: Export JAVA profile
+    lineinfile:
+      path: ~/.bash_profile
+      line: export JAVA_HOME CLASSPATH PATH
+      state: present
+      
+  - name: Create Maven directory
+    file:
+      path: ~/maven
+      state: directory
+
+  - name: Maven Download [2/2]
+    ansible.builtin.unarchive:
+      src: http://apache.tt.co.kr/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+      dest: ~/maven
+      remote_src: yes
+
+  - name: Add Maven HOME
+    lineinfile:
+      path: ~/.bash_profile
+      line: MAVEN_HOME=/root/maven/apache-maven-3.6.3
+      state: present
+
+  - name: Add Maven Path
+    lineinfile:
+      path: ~/.bash_profile
+      inseartafter: 'PATH=$PATH'
+      line: 'PATH=$PATH:$MAVEN_HOME/bin'
+      state: present
+      
+  - name: Export Maven profile
+    lineinfile:
+      path: ~/.bash_profile
+      line: export MAVEN_HOME PATH
+      state: present
+      
+  - name: Create Spring directory
+    file:
+      path: ~/spring
+      state: directory
+
+  - name: Spring Download [2/2]
+    ansible.builtin.unarchive:
+      src: https://repo.spring.io/release/org/springframework/boot/spring-boot-cli/2.3.4.RELEASE/spring-boot-cli-2.3.4.RELEASE-bin.tar.gz
+      dest: ~/spring
+      remote_src: yes     
+      
+  - name: Add Spring HOME
+    lineinfile:
+      path: ~/.bash_profile
+      line: SPRING_HOME=/root/spring/spring-2.3.4.RELEASE
+      state: present
+
+  - name: Add Spring Path
+    lineinfile:
+      path: ~/.bash_profile
+      inseartafter: 'PATH=$PATH'
+      line: 'PATH=$PATH:$SPRING_HOME/bin'
+      state: present
+      
+  - name: Export Spring profile
+    lineinfile:
+      path: ~/.bash_profile
+      line: export SPRING_HOME PATH
+      state: present      
+      
+      
+      
+      
