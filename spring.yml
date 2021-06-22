@@ -96,6 +96,6 @@
       line: export SPRING_HOME PATH
       state: present      
       
-      
-      
-      
+  - name: Source bash profile
+    ansible.builtin.shell:
+      cmd: source ~/.bash_profile     
