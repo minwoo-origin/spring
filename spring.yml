@@ -26,7 +26,7 @@
   - name: Add JAVA Path
     lineinfile:
       path: ~/.bash_profile
-      inseartafter: 'PATH=$PATH'
+      insertafter: 'PATH=$PATH'
       line: 'PATH=$PATH:$JAVA_HOME/bin'
       state: present
 
@@ -56,7 +56,7 @@
   - name: Add Maven Path
     lineinfile:
       path: ~/.bash_profile
-      inseartafter: 'PATH=$PATH'
+      insertafter: 'PATH=$PATH'
       line: 'PATH=$PATH:$MAVEN_HOME/bin'
       state: present
       
@@ -86,7 +86,7 @@
   - name: Add Spring Path
     lineinfile:
       path: ~/.bash_profile
-      inseartafter: 'PATH=$PATH'
+      insertafter: 'PATH=$PATH'
       line: 'PATH=$PATH:$SPRING_HOME/bin'
       state: present
       
